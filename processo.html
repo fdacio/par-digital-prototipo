@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criação de Plano e Processo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+            margin: 0;
+            padding: 24px;
+        }
+
+        h2 {
+            margin: 0 0 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:disabled {
+            background: #eee;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .btn-outline {
+            background: #fff;
+            border: 1px solid #2563eb;
+            color: #2563eb;
+        }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .component-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .font-table {
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .component-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tabela de Componentes */
+        .table-componentes {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            font-size: 14px;
+        }
+
+        /* Cabeçalho */
+        .table-componentes thead {
+            background: #f1f5f9;
+        }
+
+        .table-componentes th {
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: #334155;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Corpo */
+        .table-componentes td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
+            vertical-align: middle;
+        }
+
+        /* Linha hover */
+        .table-componentes tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Alinhamentos */
+        .table-componentes .text-center {
+            text-align: center;
+        }
+
+        .table-componentes .text-right {
+            text-align: right;
+        }
+
+        /* Inputs dentro da tabela */
+        .table-componentes input,
+        .table-componentes select {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 13px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .table-componentes input:disabled {
+            background: #f1f5f9;
+        }
+
+        /* Botões de ação */
+        .table-componentes .btn-action {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+        .table-componentes .btn-remove {
+            color: #dc2626;
+        }
+
+        .table-componentes .btn-remove:hover {
+            background: #fee2e2;
+        }
+
+        /* Rodapé (totais) */
+        .table-componentes tfoot td {
+            font-weight: 600;
+            background: #f8fafc;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .table-componentes thead {
+                display: none;
+            }
+
+            .table-componentes,
+            .table-componentes tbody,
+            .table-componentes tr,
+            .table-componentes td {
+                display: block;
+                width: 100%;
+            }
+
+            .table-componentes tr {
+                margin-bottom: 16px;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 12px;
+            }
+
+            .table-componentes td {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 0;
+                border: none;
+            }
+
+            .table-componentes td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #334155;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- PLANO -->
+        <div class="card">
+            <h2>Plano Anual</h2>
+            <div class="grid grid-4">
+                <div>
+                    <label>Ano</label>
+                    <input type="number" placeholder="2026" />
+                </div>
+                <div>
+                    <label>Descrição</label>
+                    <input type="text" placeholder="Plano Estadual de Saúde" />
+                </div>
+                <div>
+                    <label>Data</label>
+                    <input type="date" />
+                </div>
+            </div>
+        </div>
+
+        <!-- PROCESSO -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Processo</h2>
+                <button class="btn btn-outline">+ Adicionar Processo</button>
+            </div>
+            <div class="grid grid-4">
+                <div>
+                    <label>Competência</label>
+                    <input type="month" />
+                </div>
+                <div>
+                    <label>Estado</label>
+                    <input type="text" disabled placeholder="—" />
+                </div>
+                <div>
+                    <label>Situação</label>
+                    <input type="text" disabled value="Rascunho" />
+                </div>
+                <div>
+                    <label>Tipo de Solicitação</label>
+                    <select>
+                        <option value="">Selecione</option>
+                        <option>Custeio</option>
+                        <option>Expansão</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOCALIZAÇÃO -->
+        <div class="card">
+            <h2>Itens do Processo</h2>
+            <div class="grid grid-3">
+                <div>
+                    <label>Região</label>
+                    <select>
+                        <option>Selecione a região</option>
+                        <option>1ª Região</option>
+                        <option>2ª Região</option>
+                        <option>3ª Região</option>
+                        <option>4ª Região</option>
+                        <option>5ª Região</option>
+                        <option>6ª Região</option>
+                        <option>7ª Região</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Município</label>
+                    <select>
+                        <option>Natal</option>
+                        <option>Parnamirim</option>
+                        <option>Mossoró</option>
+                        <option>São Gonçalo do Amarante</option>
+                        <option>Caicó</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Unidade (CNES)</label>
+                    <select>
+                        <option>Selecione a unidade</option>
+                        <option>HOSPITAL REGIONAL TARCÍSIO MAIA</option>
+                        <option>HOSPITAL REGIONAL DE APODI</option>
+                        <option>HOSPITAL REGIONAL DE CARAÚBAS</option>
+                        <option>HOSPITAL REGIONAL DE PAU DOS FERROS</option>
+                        <option>HOSPITAL WILSON ROSADO</option>
+                        <option>HOSPITAL REGIONAL DE ASSÚ</option>
+                        <option>HOSPITAL RAFAEL FERNANDES</option>
+                        <option>HOSPITAL DA POLÍCIA DE MOSSORÓ</option>
+                        <option>HOSPITAL MUNICIPAL DE PATU</option>
+                        <option>HOSPITAL MAT PAULINA TARGINO</option>
+                        <option>HOSPITAL MATERNIDADE GUIOMAR FERNANDES</option>
+                        <option>HOSPITAL MATERNIDADE JOAQUINA QUEIROZ</option>
+                        <option>HOSPITAL SÃO LUIZ</option>
+                        <option>HOSPITAL MATERNIDADE ALMEIDA CASTRO (APAMIN)</option>
+                        <option>HOSPITAL MUNICIPAL DE DIX SEPT ROSADO</option>
+                        <option>LIGA MOSSOROENSE DE ESTUDOS CONTRA O CANCER</option>
+                    </select>
+                    </select>
+                </div>
+            </div>
+            <div class="grid grid-3">
+                <div>
+                    <label>Esfera Administrativa</label>
+                    <select>
+                        <option>Selecione</option>
+                        <option>Estadual</option>
+                        <option>Municipal</option>
+                        <option>Privada</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Tipo de Gestão</label>
+                    <select>
+                        <option>Selecione</option>
+                        <option>Estadual</option>
+                        <option>Municipal</option>
+                        <option>Privada</option>
+                        <option>FIlantrópico</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Natureza</label>
+                    <select>
+                        <option>Selecione</option>
+                        <option>Administração direta de saúde</option>
+                        <option>Empresa privada</option>
+                        <option>Filantrópico</option>
+                    </select>
+                </div>
+            </div>
+            <div class="component-row">
+                <div>
+                    <label>Componente</label>
+                    <select>
+                        <option value="">Selecione o componente</option>
+                        <option>UTI Adulto</option>
+                        <option>UTI Pediátrica</option>
+                        <option>UTI Neonatal</option>
+                        <option>Enfermaria Adulto</option>
+                        <option>Enfermaria Pediátrica</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Quantidade</label>
+                    <input type="number" />
+                </div>
+                <div>
+                    <label>Valor</label>
+                    <input type="number" />
+                </div>
+            </div>
+            <div style="margin-top: 16px;">
+                <button class="btn btn-primary">+ Adicionar</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <table class="table-componentes">
+                    <tr>
+                        <th>Município</th>
+                        <th>CNES</th>
+                        <th>Unidade</th>
+                        <th>Esfera Administrativa</th>
+                        <th>Tipo de Gestão</th>
+                        <th>Natureza</th>
+                        <th>Componente</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    <tr>
+                        <td>
+                            Mossoró
+                        </td>
+                        <td>
+                            2503689
+                        </td>
+                        <td>
+                            Hospital Regional Tarcísio Maia
+                        </td>
+                        <td>
+                            Estadual
+                        </td>
+                        <td>
+                            Estadual
+                        </td>
+                        <td>
+                            Administração Direta
+                        </td>
+                        <td>
+                            UTI Adulto
+                        </td>
+                        <td style="padding-left: 24px;">
+                            5
+                        </td>
+                        <td style="padding-left: 24px;">
+                            R$ 150.000,00 </td>
+                        <td>
+                            <button class="btn btn-outline btn-danger">Remover</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            APODI
+                        </td>
+                        <td>
+                            2410443
+                        </td>
+                        <td>
+                            HOSPITAL REGIONAL DE APODI
+                        </td>
+                        <td>
+                            Estadual
+                        </td>
+                        <td>
+                            Estadual
+                        </td>
+                        <td>
+                            Administração Direta
+                        </td>
+                        <td>
+                            UTI Pediátrica
+                        </td>
+                        <td style="padding-left: 24px;">
+                            
+                        </td>
+                        <td style="padding-left: 24px;">
+                           R$ 100.000,00 </td>
+                        <td>
+                            <button class="btn btn-outline btn-danger">Remover</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            CARAÚBAS
+                        </td>
+                        <td>
+                            2410141
+                        </td>
+                        <td>
+                            HOSPITAL REGIONAL DE CARAÚBAS
+                        </td>
+                        <td>
+                            Estadual
+                        </td>
+                        <td>
+                            Estadual
+                        </td>
+                        <td>
+                            Administração Direta
+                        </td>
+                        <td>
+                            UTI Neonatal
+                        </td>
+                        <td style="padding-left: 24px;">
+                            Quantidade: 6
+                        </td>
+                        <td style="padding-left: 24px;">
+                            Valor: R$ 125.000,00 </td>
+                        <td>
+                            <button class="btn btn-outline btn-danger">Remover</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Mossoró
+                        </td>
+                        <td>
+                            9119701
+                        </td>
+                        <td>
+                           HOSPITAL SÃO LUIZ
+                        </td>
+                        <td>
+                            MUNICIPAL
+                        </td>
+                        <td>
+                            PRIVADO
+                        </td>
+                        <td>
+                            Empresa privada
+                        </td>
+                        <td>
+                            UTI Adulto
+                        </td>
+                        <td style="padding-left: 24px;">
+                            5
+                        </td>
+                        <td style="padding-left: 24px;">
+                            R$ 150.000,00 </td>
+                        <td>
+                            <button class="btn btn-outline btn-danger">Remover</button>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- AÇÕES -->
+        <div class="actions">
+            <button class="btn btn-outline">Salvar Rascunho</button>
+            <button class="btn btn-primary">Enviar Processo</button>
+        </div>
+
+    </div>
+</body>
+
+</html>
